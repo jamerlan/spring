@@ -74,7 +74,7 @@ inline aiQuaterniont<TReal>::aiQuaterniont( const aiMatrix3x3t<TReal> &pRotMatri
 	// large enough
 	if( t > static_cast<TReal>(0.001))
 	{
-		TReal s = sqrt( t) * static_cast<TReal>(2.0);
+		TReal s = math::sqrt( t) * static_cast<TReal>(2.0);
 		x = (pRotMatrix.c2 - pRotMatrix.b3) / s;
 		y = (pRotMatrix.a3 - pRotMatrix.c1) / s;
 		z = (pRotMatrix.b1 - pRotMatrix.a2) / s;
@@ -83,7 +83,7 @@ inline aiQuaterniont<TReal>::aiQuaterniont( const aiMatrix3x3t<TReal> &pRotMatri
 	else if( pRotMatrix.a1 > pRotMatrix.b2 && pRotMatrix.a1 > pRotMatrix.c3 )  
 	{	
 		// Column 0: 
-		TReal s = sqrt( static_cast<TReal>(1.0) + pRotMatrix.a1 - pRotMatrix.b2 - pRotMatrix.c3) * static_cast<TReal>(2.0);
+		TReal s = math::sqrt( static_cast<TReal>(1.0) + pRotMatrix.a1 - pRotMatrix.b2 - pRotMatrix.c3) * static_cast<TReal>(2.0);
 		x = static_cast<TReal>(0.25) * s;
 		y = (pRotMatrix.b1 + pRotMatrix.a2) / s;
 		z = (pRotMatrix.a3 + pRotMatrix.c1) / s;
@@ -92,7 +92,7 @@ inline aiQuaterniont<TReal>::aiQuaterniont( const aiMatrix3x3t<TReal> &pRotMatri
 	else if( pRotMatrix.b2 > pRotMatrix.c3) 
 	{ 
 		// Column 1: 
-		TReal s = sqrt( static_cast<TReal>(1.0) + pRotMatrix.b2 - pRotMatrix.a1 - pRotMatrix.c3) * static_cast<TReal>(2.0);
+		TReal s = math::sqrt( static_cast<TReal>(1.0) + pRotMatrix.b2 - pRotMatrix.a1 - pRotMatrix.c3) * static_cast<TReal>(2.0);
 		x = (pRotMatrix.b1 + pRotMatrix.a2) / s;
 		y = static_cast<TReal>(0.25) * s;
 		z = (pRotMatrix.c2 + pRotMatrix.b3) / s;
@@ -100,7 +100,7 @@ inline aiQuaterniont<TReal>::aiQuaterniont( const aiMatrix3x3t<TReal> &pRotMatri
 	} else 
 	{ 
 		// Column 2:
-		TReal s = sqrt( static_cast<TReal>(1.0) + pRotMatrix.c3 - pRotMatrix.a1 - pRotMatrix.b2) * static_cast<TReal>(2.0);
+		TReal s = math::sqrt( static_cast<TReal>(1.0) + pRotMatrix.c3 - pRotMatrix.a1 - pRotMatrix.b2) * static_cast<TReal>(2.0);
 		x = (pRotMatrix.a3 + pRotMatrix.c1) / s;
 		y = (pRotMatrix.c2 + pRotMatrix.b3) / s;
 		z = static_cast<TReal>(0.25) * s;
@@ -204,10 +204,10 @@ inline void aiQuaterniont<TReal>::Interpolate( aiQuaterniont& pOut, const aiQuat
 	{
 		// Standard case (slerp)
 		TReal omega, sinom;
-		omega = acos( cosom); // extract theta from dot product's cos theta
-		sinom = sin( omega);
-		sclp  = sin( (static_cast<TReal>(1.0) - pFactor) * omega) / sinom;
-		sclq  = sin( pFactor * omega) / sinom;
+		omega = math::acos( cosom); // extract theta from dot product's cos theta
+		sinom = math::sin( omega);
+		sclp  = math::sin( (static_cast<TReal>(1.0) - pFactor) * omega) / sinom;
+		sclq  = math::sin( pFactor * omega) / sinom;
 	} else
 	{
 		// Very close, do linear interp (because it's faster)
