@@ -283,7 +283,7 @@ void LWOImporter::ConvertMaterial(const LWO::Surface& surf,aiMaterial* pcMat)
 	{
 		float fGloss;
 		if (mIsLWO2)	{
-			fGloss = pow( surf.mGlossiness*10.0f+2.0f, 2.0f);
+			fGloss = math::pow( surf.mGlossiness*10.0f+2.0f, 2.0f);
 		}
 		else
 		{
@@ -453,7 +453,7 @@ void LWOImporter::FindUVChannels(LWO::Surface& surf,
 							++extra;
 							out[next++] = i;
 						}
-						// Bäh ... seems not to be used at all. Push to end if enough space is available.
+						// Bï¿½h ... seems not to be used at all. Push to end if enough space is available.
 						else {
 							out[extra++] = i;
 							++num_extra;
@@ -850,7 +850,7 @@ void LWOImporter::LoadLWO2Surface(unsigned int size)
 		case AI_LWO_SMAN:
 			{
 				AI_LWO_VALIDATE_CHUNK_LENGTH(head->length,SMAN,4);
-				surf.mMaximumSmoothAngle = fabs( GetF4() );
+				surf.mMaximumSmoothAngle = math::fabs( GetF4() );
 				break;
 			}
 			// vertex color channel to be applied to the surface

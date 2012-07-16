@@ -113,12 +113,12 @@ inline aiQuaterniont<TReal>::aiQuaterniont( const aiMatrix3x3t<TReal> &pRotMatri
 template<typename TReal>
 inline aiQuaterniont<TReal>::aiQuaterniont( TReal fPitch, TReal fYaw, TReal fRoll )
 {
-	const TReal fSinPitch(sin(fPitch*static_cast<TReal>(0.5)));
-	const TReal fCosPitch(cos(fPitch*static_cast<TReal>(0.5)));
-	const TReal fSinYaw(sin(fYaw*static_cast<TReal>(0.5)));
-	const TReal fCosYaw(cos(fYaw*static_cast<TReal>(0.5)));
-	const TReal fSinRoll(sin(fRoll*static_cast<TReal>(0.5)));
-	const TReal fCosRoll(cos(fRoll*static_cast<TReal>(0.5)));
+	const TReal fSinPitch(math::sin(fPitch*static_cast<TReal>(0.5)));
+	const TReal fCosPitch(math::cos(fPitch*static_cast<TReal>(0.5)));
+	const TReal fSinYaw(math::sin(fYaw*static_cast<TReal>(0.5)));
+	const TReal fCosYaw(math::cos(fYaw*static_cast<TReal>(0.5)));
+	const TReal fSinRoll(math::sin(fRoll*static_cast<TReal>(0.5)));
+	const TReal fCosRoll(math::cos(fRoll*static_cast<TReal>(0.5)));
 	const TReal fCosPitchCosYaw(fCosPitch*fCosYaw);
 	const TReal fSinPitchSinYaw(fSinPitch*fSinYaw);
 	x = fSinRoll * fCosPitchCosYaw     - fCosRoll * fSinPitchSinYaw;
@@ -153,8 +153,8 @@ inline aiQuaterniont<TReal>::aiQuaterniont( aiVector3t<TReal> axis, TReal angle)
 {
 	axis.Normalize();
 
-	const TReal sin_a = sin( angle / 2 );
-	const TReal cos_a = cos( angle / 2 );
+	const TReal sin_a = math::sin( angle / 2 );
+	const TReal cos_a = math::cos( angle / 2 );
 	x    = axis.x * sin_a;
 	y    = axis.y * sin_a;
 	z    = axis.z * sin_a;
@@ -174,7 +174,7 @@ inline aiQuaterniont<TReal>::aiQuaterniont( aiVector3t<TReal> normalized)
 	if (t < static_cast<TReal>(0.0)) {
 		w = static_cast<TReal>(0.0);
 	}
-	else w = sqrt (t);
+	else w = math::sqrt (t);
 }
 
 // ---------------------------------------------------------------------------
@@ -226,7 +226,7 @@ template<typename TReal>
 inline aiQuaterniont<TReal>& aiQuaterniont<TReal>::Normalize()
 {
 	// compute the magnitude and divide through it
-	const TReal mag = sqrt(x*x + y*y + z*z + w*w);
+	const TReal mag = math::sqrt(x*x + y*y + z*z + w*w);
 	if (mag)
 	{
 		const TReal invMag = static_cast<TReal>(1.0)/mag;
